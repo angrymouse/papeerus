@@ -1,0 +1,16 @@
+{
+  "name": "papeerus",
+  "version": "0.0.1",
+  "description": "Peer-to-peer eventroom engine",
+  "main": "index.js",
+  "repository": "https://github.com/angrymouse/papeerus",
+  "author": "Angrymouse <nik@hns.is>",
+  "license": "ISC",
+  "private": false,
+  "dependencies": {
+    "fastify": "^3.29.0",
+    "node-fetch": "^3.2.6",
+    "pouchdb": "^7.3.0",
+    "undici": "^5.4.0"
+  }
+}
