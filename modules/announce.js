@@ -37,7 +37,7 @@ module.exports = async function announce() {
 		return "ok";
 	});
 	this.startPeerDiscovering();
-
+	// console.log(await this.localdb.getIndexes());
 	this._fastify.listen(this.port, this.host);
 	let announceToOtherPeers = async () => {
 		let listedPeers = await this.localdb.allDocs({

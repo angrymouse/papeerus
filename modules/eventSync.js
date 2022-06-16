@@ -12,9 +12,14 @@ module.exports = async function eventSync() {
 	this._fastify.get("/events/:hash", async (req, res) => {
 		let hash = req.params.hash;
 		try {
-			return await this.localdb.getAttachment("event:" + hash, "data.bin");
+			// console.log(await this.localdb.get("event:" + hash));
+
+			return Buffer.from((await this.localdb.get("event:" + hash)).data.data);
 		} catch (e) {
-			console.error(e);
+			if (this.debug) {
+				console.log(e);
+			}
+
 			return "Data not found";
 		}
 	});
@@ -63,16 +68,15 @@ module.exports = async function eventSync() {
 							_id: `processedEvent:${hash}`,
 							hash: hash,
 						});
-						await this.localdb.putAttachment("event:" + hash, "data.bin", data);
-						this.emit("newDataInNetwork", data);
+						await this.localdb.put({ _id: "event:" + hash, data, hash });
+						this.emit("newData", data);
 					} catch (e) {
-						// if (!this.debug) {
-						// 	return null;
-						// }
+						if (!this.debug) {
+							return null;
+						}
 						return console.error(e);
 					}
 				}
-				// console.log(events);
 			}
 		} catch (e) {
 			if (!this.debug) {
@@ -81,6 +85,6 @@ module.exports = async function eventSync() {
 			return console.error(e);
 		}
 	};
-	syncFromOtherPeers();
+	// syncFromOtherPeers();
 	setInterval(syncFromOtherPeers, this.pollInterval);
 };

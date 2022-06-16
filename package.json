@@ -8,9 +8,12 @@
   "license": "ISC",
   "private": false,
   "dependencies": {
+    "abstract-level": "^1.0.3",
     "fastify": "^3.29.0",
     "node-fetch": "^3.2.6",
+    "node-localstorage": "^2.2.1",
     "pouchdb": "^7.3.0",
+    "pouchdb-find": "^7.3.0",
     "undici": "^5.4.0"
   }
 }
